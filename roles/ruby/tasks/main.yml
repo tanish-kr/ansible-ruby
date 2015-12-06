@@ -1,0 +1,25 @@
+---
+- name: install git
+  yum: name=git state=installed
+
+- name: install ruby dependencies
+  yum: name={{ item }} state=latest
+  with_items:
+    - gcc
+    - gcc-c++
+    - openssl-devel
+    - libyaml-devel
+    - readline-devel
+    - zlib-devel
+    - libffi-devel
+    - libxml2-devel
+    - libxslt-devel
+
+- name: unfreeze ruby
+  unarchive: src=ruby-{{ version }}.tar.gz dest=/usr/src
+
+- name: install ruby
+  shell: cd /usr/src/ruby-{{ version }} && ./configure && make && make install
+
+- name: gem bundler install
+  shell: /usr/local/bin/gem install bundler
