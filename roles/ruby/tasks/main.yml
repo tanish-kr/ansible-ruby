@@ -1,9 +1,9 @@
 ---
 - name: install git
-  yum: name=git state=installed
+  package: name=git state=installed
 
 - name: install ruby dependencies
-  yum: name={{ item }} state=latest
+  package: name={{ item }} state=latest
   with_items:
     - gcc
     - gcc-c++
